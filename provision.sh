@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Mettre à jour les paquets
-apt get update
+apt-get update
 
 #Installer console-data pour configurer la disposition du clavier
 apt-get install -y console-data
@@ -22,22 +22,26 @@ echo "<!DOCTYPE html>
 <title>Bienvenue</title>
 </head>
 <body>
-<h1>Bienvenue sur ma page déployée ave Vagrant !</h1>
+<h1>Bienvenue sur ma page déployée avec Vagrant !</h1>
 </body>
-</html>" > /var/www/app/index.html
+</html>" >/var/www/app/index.html
 
 #configurer Nginx
-cat > /etc/nginx/sites-available/app <<EOL
+cat> /etc/nginx/sites-available/app <<EOL
 server {
     listen 80;
     server_name localhost;
-    toot /var/www/app;
+    root /var/www/app;
     index index.html;
     
     location / {
-        try_files \$suri \$suri/ =404
+        try_files \$uri \$uri/ =404
     }
 }
 EOL
 #Activer la configuration
+ln -s /etc/nginx/sites-available/app/etc/nginx/sites-enabled/app
+rm /etc/nginx/sites-enabled/default
+
+#redémarrage Nginx
 systemctl restart nginx

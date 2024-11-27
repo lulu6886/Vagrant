@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
 
   #ajout d'un script de provisionnement
-  config.vm.provision "shell", path: "provision.sh"
+  config.vm.provision "shell",path: "provision.sh"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
